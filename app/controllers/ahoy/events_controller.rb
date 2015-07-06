@@ -26,7 +26,7 @@ module Ahoy
         }
         ahoy.track event["name"], event["properties"], options
       end
-      render json: {}
+      render json: {}, callback: params['callback']
     end
   end
 end
