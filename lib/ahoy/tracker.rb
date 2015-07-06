@@ -30,7 +30,7 @@ module Ahoy
         debug "Visit excluded"
       else
         if options[:defer]
-          set_cookie("ahoy_track", true)
+          set_cookie("#{Ahoy.cookie_prefix}_track", true)
         else
           options = options.dup
 
@@ -72,12 +72,12 @@ module Ahoy
     end
 
     def set_visit_cookie
-      set_cookie("ahoy_visit", visit_id, Ahoy.visit_duration)
+      set_cookie("#{Ahoy.cookie_prefix}_visit", visit_id, Ahoy.visit_duration)
     end
 
     def set_visitor_cookie
       unless existing_visitor_id
-        set_cookie("ahoy_visitor", visitor_id, Ahoy.visitor_duration)
+        set_cookie("#{Ahoy.cookie_prefix}_visitor", visitor_id, Ahoy.visitor_duration)
       end
     end
 
@@ -141,11 +141,11 @@ module Ahoy
     end
 
     def existing_visit_id
-      @existing_visit_id ||= request && (request.headers["Ahoy-Visit"] || request.cookies["ahoy_visit"])
+      @existing_visit_id ||= request && (request.headers["Ahoy-Visit"] || request.cookies["#{Ahoy.cookie_prefix}_visit"])
     end
 
     def existing_visitor_id
-      @existing_visitor_id ||= request && (request.headers["Ahoy-Visitor"] || request.cookies["ahoy_visitor"])
+      @existing_visitor_id ||= request && (request.headers["Ahoy-Visitor"] || request.cookies["#{Ahoy.cookie_prefix}_visitor"])
     end
 
     def ensure_uuid(id)

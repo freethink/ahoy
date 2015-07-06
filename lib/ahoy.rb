@@ -50,6 +50,9 @@ module Ahoy
 
   mattr_accessor :cookie_domain
 
+  mattr_accessor :cookie_prefix
+  self.cookie_prefix = "Ahoy"
+
   mattr_accessor :track_visits_immediately
   self.track_visits_immediately = false
 
